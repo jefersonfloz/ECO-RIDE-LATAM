@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="1" author="ecoride">
+        <createTable tableName="trips">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="driver_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="origin" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="destination" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="seats_total" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="seats_available" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="bigint" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="trips" indexName="idx_trips_driver">
+            <column name="driver_id"/>
+        </createIndex>
+        <createIndex tableName="trips" indexName="idx_trips_status">
+            <column name="status"/>
+        </createIndex>
+        <createIndex tableName="trips" indexName="idx_trips_start_time">
+            <column name="start_time"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="2" author="ecoride">
+        <createTable tableName="reservations">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="trip_id" type="uuid">
+                <constraints nullable="false"
+                             foreignKeyName="fk_reservation_trip"
+                             references="trips(id)"/>
+            </column>
+            <column name="passenger_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="bigint" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="reservations" indexName="idx_reservations_trip">
+            <column name="trip_id"/>
+        </createIndex>
+        <createIndex tableName="reservations" indexName="idx_reservations_passenger">
+            <column name="passenger_id"/>
+        </createIndex>
+        <createIndex tableName="reservations" indexName="idx_reservations_status">
+            <column name="status"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>
