@@ -2,34 +2,26 @@ server:
   port: 8084
 
 spring:
-  application:
-    name: notification-service
-
+  config:
+    import: optional:configserver:http://localhost:8888
   datasource:
-    url: jdbc:postgresql://postgres-notification:5432/notificationdb
+    url: jdbc:postgresql://localhost:5435/notificationdb
     username: notificationuser
     password: notificationpass
     driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: validate
     show-sql: false
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
 
   kafka:
-    bootstrap-servers: kafka:9092
+    bootstrap-servers: http://localhost:9092
     consumer:
-      group-id: notification-service-group
-      auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      # CORREGIDO: Typo y clase actualizada
-      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+      value-deserizer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: notification-service-group
       properties:
         spring.json.trusted.packages: "*"
 
@@ -50,7 +42,8 @@ spring:
           timeout: 3000
           writetimeout: 5000
 
+
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-server:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
