@@ -1,56 +1,23 @@
-server:
-  port: 8084
-
 spring:
   application:
     name: notification-service
-
+  config:
+    import: optional:configserver:http://localhost:8888  # ← IMPORTANTE
+  cloud:
+    config:
+      enabled: true
+      fail-fast: false
   datasource:
-    url: jdbc:postgresql://postgres-notification:5432/notificationdb
+    url: jdbc:postgresql://localhost:5435/notificationdb
     username: notificationuser
     password: notificationpass
-    driver-class-name: org.postgresql.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    show-sql: false
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-
-  liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.xml
-
   kafka:
-    bootstrap-servers: kafka:9092
-    consumer:
-      group-id: notification-service-group
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      # CORREGIDO: Typo y clase actualizada
-      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
-      properties:
-        spring.json.trusted.packages: "*"
+    bootstrap-servers: localhost:9094
 
-  # CONFIGURACIÓN GMAIL
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: ramosdealmateo@gmail.com
-    password: xlmjtryudpajsxdx
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-          connectiontimeout: 5000
-          timeout: 3000
-          writetimeout: 5000
+server:
+  port: 8084
 
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-server:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/

@@ -74,12 +74,12 @@ public class PaymentService {
     }
 
     /**
-     * exito crea el Charge, actualiza Intent y notifica.
+     * Exito crea el Charge, actualiza Intent y notifica.
      */
     private void handleSuccess(PaymentIntent intent, String correlationId, UUID reservationId) {
         intent.setStatus(PaymentStatus.AUTHORIZED);
 
-        // crear el registro de Cobro cCharge)
+        // crear el registro de Cobro cCharge()
         Charge charge = Charge.builder()
                 .paymentIntent(intent)
                 .amount(intent.getAmount())
