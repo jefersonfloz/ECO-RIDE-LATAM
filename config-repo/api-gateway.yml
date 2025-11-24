@@ -8,6 +8,8 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+
+
       routes:
         - id: trip-service
           uri: lb://trip-service
@@ -19,7 +21,7 @@ spring:
               args:
                 name: tripServiceCB
                 fallbackUri: forward:/fallback/trips
-            - TokenRelay=
+            - TokenRelay
 
         - id: passenger-service
           uri: lb://passenger-service
@@ -31,7 +33,7 @@ spring:
               args:
                 name: passengerServiceCB
                 fallbackUri: forward:/fallback/passengers
-            - TokenRelay=
+            - TokenRelay
 
         - id: payment-service
           uri: lb://payment-service
@@ -43,7 +45,7 @@ spring:
               args:
                 name: paymentServiceCB
                 fallbackUri: forward:/fallback/payments
-            - TokenRelay=
+            - TokenRelay
 
         - id: notification-service
           uri: lb://notification-service
@@ -51,15 +53,15 @@ spring:
             - Path=/api/notifications/**
           filters:
             - StripPrefix=1
-            - TokenRelay=
+            - TokenRelay
 
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8180/realms/ecoride
+          issuer-uri: http://localhost:8180/realms/ecoride
 
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-server:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
