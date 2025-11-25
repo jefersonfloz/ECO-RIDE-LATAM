@@ -19,8 +19,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@Slf4j
 @Service
+@Slf4j
 public class PaymentService {
     private final PaymentIntentRepository paymentIntentRepository;
     private final ChargeRepository chargeRepository;

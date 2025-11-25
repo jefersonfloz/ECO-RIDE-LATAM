@@ -9,19 +9,12 @@
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
         <module name="trip-service" />
+        <module name="payment-service" />
+        <module name="passenger-service" />
         <module name="eureka-server" />
         <module name="gateway" />
       </profile>
       <profile name="Annotation profile for payment-service" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
-        </processorPath>
-        <module name="payment-service" />
-      </profile>
-      <profile name="Annotation profile for notification-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -38,6 +31,7 @@
       <module name="eureka-server" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="notification-service" options="-parameters" />
+      <module name="passenger-service" options="-parameters" />
       <module name="payment-service" options="-parameters" />
       <module name="trip-service" options="-parameters" />
     </option>

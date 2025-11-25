@@ -1,21 +1,41 @@
+server:
+  port: 8083
+
 spring:
   application:
     name: payment-service
   config:
     import: optional:configserver:http://localhost:8888
-  cloud:
-    config:
-      enabled: true
-      fail-fast: false
+
   datasource:
     url: jdbc:postgresql://localhost:5434/paymentdb
     username: paymentuser
     password: paymentpass
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
   kafka:
     bootstrap-servers: localhost:9094
-
-server:
-  port: 8083
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: payment-service-group
+      properties:
+        spring.json.trusted.packages: "*"
 
 eureka:
   client:
