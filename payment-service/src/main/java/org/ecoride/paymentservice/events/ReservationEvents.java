@@ -8,10 +8,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class ReservationEvents {
     //  Lo que se recibe de Trip-Service
     @Data
