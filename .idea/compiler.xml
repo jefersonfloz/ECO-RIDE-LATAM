@@ -10,6 +10,7 @@
         <module name="config-server" />
         <module name="trip-service" />
         <module name="payment-service" />
+        <module name="passenger-service" />
         <module name="eureka-server" />
         <module name="gateway" />
       </profile>
@@ -30,6 +31,7 @@
       <module name="eureka-server" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="notification-service" options="-parameters" />
+      <module name="passenger-service" options="-parameters" />
       <module name="payment-service" options="-parameters" />
       <module name="trip-service" options="-parameters" />
     </option>
